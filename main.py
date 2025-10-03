@@ -47,3 +47,11 @@ def main(request: Request):
     for region in request.regions:
        ret[region] = calculate_values(request.threshold_ms, region)
     return ret
+
+@app.post('/')
+async def health():
+    return "Bro im fine"
+
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
