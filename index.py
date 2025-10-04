@@ -44,9 +44,11 @@ def calculate_values(threshold, region):
 
 @app.post('/api/latency')
 async def main(request: Request):
+    print(request)
     ret = {}
     for region in request.regions:
        ret[region] = calculate_values(request.threshold_ms, region)
+    print(ret)
     return ret
 
 @app.get('/')
