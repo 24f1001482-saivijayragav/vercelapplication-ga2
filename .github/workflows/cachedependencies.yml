@@ -1,0 +1,28 @@
+name: Cache CI Dependencies
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Cache dependencies
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: cache-e52adc4
+
+      - name: prime-cache-e52adc4
+        run: echo "Cache hit? ${{ steps.cache.outputs.cache-hit }}"
