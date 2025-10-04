@@ -49,7 +49,7 @@ async def main(request: Request):
     print(request)
     ret = {"regions": []}
     for region in request.regions:
-       ret["regions"][region] = calculate_values(request.threshold_ms, region)
+       ret["regions"].append(calculate_values(request.threshold_ms, region))
     print(ret)
     return ret
 
