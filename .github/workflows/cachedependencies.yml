@@ -26,3 +26,10 @@ jobs:
 
       - name: prime-cache-e52adc4
         run: echo "Cache hit? ${{ steps.cache.outputs.cache-hit }}"
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: 24f1001482@ds.study.iitm.ac.in
+        run: echo "Hello, world!"
