@@ -33,7 +33,7 @@ def calculate_values(threshold, region):
     avg_latency = float(df["latency_ms"].mean())
     p95_latency = float(np.percentile(df["latency_ms"], 95))
     avg_uptime = float(df["uptime_pct"].mean())
-    breaches = int((df["latency_ms"] > threshold).sum())
+    breaches = int((df[df["latency_ms"] > threshold].shape[0]))
     
     result = {
         "region": region,
