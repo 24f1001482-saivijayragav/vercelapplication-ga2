@@ -18,7 +18,8 @@ app.add_middleware(
     allow_origins=["*"],
     allow_methods=["*"],
     allow_headers=["*"],
-    allow_credentials=["*"]
+    allow_credentials=True,
+    expose_headers=["*"]
 )
 
 
@@ -35,6 +36,7 @@ def calculate_values(threshold, region):
     breaches = float((df["latency_ms"] > threshold).sum())
     
     result = {
+        "region": region,
         "avg_latency": round(avg_latency, 2),
         "p95_latency": round(p95_latency, 2),
         "avg_uptime": round(avg_uptime, 2),
@@ -45,9 +47,9 @@ def calculate_values(threshold, region):
 @app.post('/api/latency')
 async def main(request: Request):
     print(request)
-    ret = {}
+    ret = {"regions": []}
     for region in request.regions:
-       ret[region] = calculate_values(request.threshold_ms, region)
+       ret["regions"][region] = calculate_values(request.threshold_ms, region)
     print(ret)
     return ret
 
